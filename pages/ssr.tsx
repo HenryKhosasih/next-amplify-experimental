@@ -1,10 +1,9 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-
 type Props = {
   formattedDate: string;
 };
 
-export default function Home({ formattedDate }: Props) {
+export default function SSR({ formattedDate }: Props) {
   return (
     <main
       className={`flex flex-col min-h-screen items-center justify-center text-2xl`}
@@ -16,10 +15,10 @@ export default function Home({ formattedDate }: Props) {
         </span>
         !
       </p>
-      <p>This page is static. It was built on {formattedDate}.</p>
+      <p>This page is SSR-ed. It was built on {formattedDate}.</p>
       <p>
-        <a href="/ssr">
-          View a server-side rendered page{" "}
+        <a href="/">
+          View a static page{" "}
           <NavigateNextIcon className="bg-cyan-500 rounded-lg" />
         </a>
       </p>
@@ -27,12 +26,14 @@ export default function Home({ formattedDate }: Props) {
   );
 }
 
-export async function getStaticProps() {
-  const buildDate = Date.now();
+export async function getServerSideProps() {
+  const renderDate = Date.now();
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "long",
     timeStyle: "long",
-  }).format(buildDate);
-
+  }).format(renderDate);
+  console.log(
+    `SSR ran on ${formattedDate}. This will be logged in CloudWatch.`
+  );
   return { props: { formattedDate } };
 }
