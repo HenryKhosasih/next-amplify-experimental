@@ -1,4 +1,5 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Link from "next/link";
 
 type Props = {
   formattedDate: string;
@@ -18,10 +19,10 @@ export default function Home({ formattedDate }: Props) {
       </p>
       <p>This page is static. It was built on {formattedDate}.</p>
       <p>
-        <a href="/ssr">
+        <Link href="/ssr">
           View a server-side rendered page{" "}
           <NavigateNextIcon className="bg-cyan-500 rounded-lg" />
-        </a>
+        </Link>
       </p>
     </main>
   );
